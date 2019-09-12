@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-
 import { FlatList } from 'react-native-gesture-handler';
+import api from '../../services/api';
+
 import {
   Container,
   ContainerProduct,
@@ -16,25 +17,24 @@ import {
 
 export default class Main extends Component {
   state = {
-    products: [
-      {
-        key: 0,
-        title:
-          'Seu story akmvl;asmdklmasdkl;mask;l m;klmfk;lmkmbbs bg  gfb fg bfg bdf gb df gb df gb df bg dfb df g',
-      },
-      { key: 1, title: 'imgus_' },
-      { key: 2, title: 'imgus_' },
-      { key: 3, title: 'imgus_' },
-      { key: 4, title: 'imgus_' },
-      { key: 5, title: 'imgus_' },
-      { key: 6, title: 'imgus_' },
-      { key: 7, title: 'imgus_' },
-      { key: 8, title: 'imgus_' },
-      { key: 9, title: 'imgus_' },
-    ],
+    products: [],
+  };
+
+  componentDidMount() {
+    this.getProducts();
+  }
+
+  getProducts = async () => {
+    const resp = await api.get('/products');
+
+    this.setState({
+      products: resp.data,
+    });
   };
 
   render() {
+    const { products } = this.state;
+
     const renderItem = ({ item }) => (
       <ContainerProduct>
         <ProductImg
@@ -59,11 +59,7 @@ export default class Main extends Component {
 
     return (
       <Container>
-        <FlatList
-          horizontal
-          data={this.state.products}
-          renderItem={renderItem}
-        />
+        <FlatList horizontal data={products} renderItem={renderItem} />
       </Container>
     );
   }
