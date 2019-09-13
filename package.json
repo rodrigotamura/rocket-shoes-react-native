@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "axios": "^0.19.0",
+    "intl": "^1.2.5",
     "json-server": "^0.15.1",
     "polished": "^3.4.1",
     "react": "16.8.6",

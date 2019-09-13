@@ -5,7 +5,7 @@ import { darken } from 'polished';
 export const Container = styled.View`
   background-color: #191920;
   flex: 1;
-  padding: 30px 0;
+  padding: 10px 0;
   color: #fff;
   flex-direction: row;
 `;
