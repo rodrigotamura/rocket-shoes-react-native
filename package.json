@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "axios": "^0.19.0",
+    "immer": "^4.0.0",
     "intl": "^1.2.5",
     "json-server": "^0.15.1",
     "polished": "^3.4.1",
@@ -19,7 +20,8 @@
     "react-native-vector-icons": "^6.6.0",
     "react-navigation": "^4.0.4",
     "react-navigation-stack": "^1.7.3",
-    "reactotron-react-native": "^3.6.5",
+    "react-redux": "^7.1.1",
+    "redux": "^4.0.4",
     "styled-components": "^4.3.2"
   },
   "devDependencies": {
@@ -39,7 +41,9 @@
     "jest": "^24.9.0",
     "metro-react-native-babel-preset": "^0.56.0",
     "prettier": "^1.18.2",
-    "react-test-renderer": "16.8.6"
+    "react-test-renderer": "16.8.6",
+    "reactotron-react-native": "^3.6.5",
+    "reactotron-redux": "^3.1.1"
   },
   "jest": {
     "preset": "react-native"

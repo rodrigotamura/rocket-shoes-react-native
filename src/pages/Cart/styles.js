@@ -24,12 +24,17 @@ export const ProdImg = styled.Image`
   height: 80px;
 `;
 export const ContainerProd = styled.View`
+  flex-direction: column;
+`;
+
+export const ContainerProdF1 = styled.View`
   flex-direction: row;
   align-items: center;
   align-content: stretch;
   justify-content: space-between;
   flex-wrap: wrap;
 `;
+
 export const ProdDetails = styled.View`
   flex-direction: column;
   justify-content: center;
@@ -56,14 +61,14 @@ export const ProdControls = styled.View`
 
   flex: 0 1 300px;
 
-  margin-bottom: 15px;
+  margin: 15px 0;
 `;
 export const StockCtrl = styled.View`
   flex-direction: row;
   align-items: center;
 `;
 export const ProductAmount = styled.TextInput.attrs({
-  readonly: true,
+  editable: false,
 })`
   background: #fff;
   padding: 5px;
@@ -84,4 +89,10 @@ export const Separator = styled.View`
   height: 1px;
   background: #999;
   margin: 10px 0;
+`;
+
+export const MsgEmpty = styled.Text`
+  margin: 20px auto;
+  font-size: 20px;
+  color: #888;
 `;
