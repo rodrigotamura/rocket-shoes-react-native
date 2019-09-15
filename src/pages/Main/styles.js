@@ -64,3 +64,9 @@ export const ButtonAddText = styled.Text`
   width: 100%;
   text-align: center;
 `;
+
+export const LoadingProducts = styled.View`
+  flex: 1 1;
+  align-items: center;
+  justify-content: center;
+`;

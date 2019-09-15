@@ -21,17 +21,20 @@ import {
   Separator,
   ContainerProdF1,
   MsgEmpty,
+  ContainerTotal,
+  Total,
+  FinishBtn,
+  FinishBtnText,
 } from './styles';
 import { formatPrice } from '../../utils/format.js';
 
-function Cart({ cart, removeItem, updateAmount }) {
+function Cart({ cart, total, removeItem, updateAmountRequest }) {
   const increment = product => {
-    console.tron.log(product);
-    updateAmount(product.id, product.amount + 1);
+    updateAmountRequest(product.id, product.amount + 1);
   };
 
   const decrement = product => {
-    updateAmount(product.id, product.amount - 1);
+    updateAmountRequest(product.id, product.amount - 1);
   };
 
   const handleRemoveProduct = id => {
@@ -62,7 +65,7 @@ function Cart({ cart, removeItem, updateAmount }) {
             </ProductControlButton>
           </StockCtrl>
 
-          <SubTotal>$144.00</SubTotal>
+          <SubTotal>{item.subtotal}</SubTotal>
         </ProdControls>
       </ContainerProd>
       <Separator />
@@ -70,20 +73,30 @@ function Cart({ cart, removeItem, updateAmount }) {
   );
 
   return (
-    <Container>
-      <ContainerCart>
-        {cart.length > 0 ? (
-          <FlatList
-            showsVerticalScrollIndicator={false}
-            data={cart}
-            renderItem={renderCartList}
-            keyExtractor={item => item.id}
-          />
-        ) : (
-          <MsgEmpty>Your cart is empty.</MsgEmpty>
-        )}
-      </ContainerCart>
-    </Container>
+    <>
+      <ContainerTotal>
+        <Total>Total: {total}</Total>
+        <FinishBtn>
+          <FinishBtnText>
+            Finish order <Icon name="check" color="#FFF" size={15} />
+          </FinishBtnText>
+        </FinishBtn>
+      </ContainerTotal>
+      <Container>
+        <ContainerCart>
+          {cart.length > 0 ? (
+            <FlatList
+              showsVerticalScrollIndicator={false}
+              data={cart}
+              renderItem={renderCartList}
+              keyExtractor={item => item.id}
+            />
+          ) : (
+            <MsgEmpty>Your cart is empty.</MsgEmpty>
+          )}
+        </ContainerCart>
+      </Container>
+    </>
   );
 }
 

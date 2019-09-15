@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { ActivityIndicator } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { FlatList } from 'react-native-gesture-handler';
 import { connect } from 'react-redux';
@@ -17,67 +18,21 @@ import {
   ProductAmount,
   ProductAmountText,
   ButtonAddText,
+  LoadingProducts,
 } from './styles';
 
 class Main extends Component {
   state = {
-    products: [
-      {
-        id: 1,
-        title: 'Tênis de Caminhada Leve Confortável',
-        price: 179.9,
-        priceFormatted: '$179.90',
-        image:
-          'https://rocketseat-cdn.s3-sa-east-1.amazonaws.com/modulo-redux/tenis1.jpg',
-      },
-      {
-        id: 2,
-        title: 'Tênis VR Caminhada Confortável Detalhes Couro Masculino',
-        price: 139.9,
-        priceFormatted: '$179.90',
-        image:
-          'https://rocketseat-cdn.s3-sa-east-1.amazonaws.com/modulo-redux/tenis2.jpg',
-      },
-      {
-        id: 3,
-        title: 'Tênis Adidas Duramo Lite 2.0',
-        price: 219.9,
-        priceFormatted: '$179.90',
-        image:
-          'https://rocketseat-cdn.s3-sa-east-1.amazonaws.com/modulo-redux/tenis3.jpg',
-      },
-      {
-        id: 5,
-        title: 'Tênis VR Caminhada Confortável Detalhes Couro Masculino',
-        price: 139.9,
-        priceFormatted: '$179.90',
-        image:
-          'https://rocketseat-cdn.s3-sa-east-1.amazonaws.com/modulo-redux/tenis2.jpg',
-      },
-      {
-        id: 6,
-        title: 'Tênis Adidas Duramo Lite 2.0',
-        price: 219.9,
-        priceFormatted: '$179.90',
-        image:
-          'https://rocketseat-cdn.s3-sa-east-1.amazonaws.com/modulo-redux/tenis3.jpg',
-      },
-      {
-        id: 4,
-        title: 'Tênis de Caminhada Leve Confortável',
-        price: 179.9,
-        priceFormatted: '$179.90',
-        image:
-          'https://rocketseat-cdn.s3-sa-east-1.amazonaws.com/modulo-redux/tenis1.jpg',
-      },
-    ],
+    products: [],
+    loading: false,
   };
 
   componentDidMount() {
-    // this.getProducts();
+    this.getProducts();
   }
 
   getProducts = async () => {
+    this.setState({ loading: true });
     const resp = await api.get('/products');
 
     const data = resp.data.map(product => ({
@@ -87,17 +42,18 @@ class Main extends Component {
 
     this.setState({
       products: data,
+      loading: false,
     });
   };
 
-  handleAddProduct = product => {
-    const { addToCart } = this.props;
+  handleAddProduct = id => {
+    const { addToCartRequest } = this.props;
 
-    addToCart(product);
+    addToCartRequest(id);
   };
 
   render() {
-    const { products } = this.state;
+    const { products, loading } = this.state;
     const { amount } = this.props;
 
     const renderItem = ({ item }) => (
@@ -111,7 +67,7 @@ class Main extends Component {
         />
         <ProductTitle numberOfLines={2}>{item.title}</ProductTitle>
         <ProductPrice>{item.priceFormatted}</ProductPrice>
-        <ButtonAdd onPress={() => this.handleAddProduct(item)}>
+        <ButtonAdd onPress={() => this.handleAddProduct(item.id)}>
           <ProductAmount>
             <Icon name="add-shopping-cart" color="#FFF" size={20} />
             <ProductAmountText>{amount[item.id] || 0}</ProductAmountText>
@@ -123,7 +79,13 @@ class Main extends Component {
 
     return (
       <Container>
-        <FlatList horizontal data={products} renderItem={renderItem} />
+        {loading ? (
+          <LoadingProducts>
+            <ActivityIndicator color="#FFF" size={50} />
+          </LoadingProducts>
+        ) : (
+          <FlatList horizontal data={products} renderItem={renderItem} />
+        )}
       </Container>
     );
   }

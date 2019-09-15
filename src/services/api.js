@@ -1,7 +1,8 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'http://192.168.0.106:3333',
+  baseURL:
+    'https://my-json-server.typicode.com/rodrigotamura/rocket-shoes-react-native',
 });
 
 export default api;

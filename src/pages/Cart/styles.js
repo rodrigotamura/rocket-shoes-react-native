@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { RectButton } from 'react-native-gesture-handler';
 
 export const Container = styled.View`
   background-color: #191920;
@@ -95,4 +95,34 @@ export const MsgEmpty = styled.Text`
   margin: 20px auto;
   font-size: 20px;
   color: #888;
+`;
+
+export const ContainerTotal = styled.View`
+  background: #888;
+  padding: 15px;
+  margin-bottom: 10px;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+`;
+export const Total = styled.Text`
+  color: #fff;
+  font-size: 20px;
+  font-weight: bold;
+`;
+export const FinishBtn = styled(RectButton)`
+  background: #7159c1;
+  padding: 10px;
+  border-radius: 5px;
+
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+`;
+export const FinishBtnText = styled.Text`
+  color: #fff;
+  font-weight: bold;
+  font-size: 15px;
+  margin-right: 10px;
+  text-transform: uppercase;
 `;
